@@ -3,8 +3,10 @@ library(httr)
 library(dplyr)
 `%notin%` <- function(x,y) !(x %in% y)
 
+#https://storycorps.org/wp-json/posts
+#https://storycorps.org/wp-json/stories
 url = "https://archive.storycorps.org/wp-json/interviews?page="
-id = 1:17287
+id = 1:17310
 
 getStoryCorpsStats <- function() {
   GET("https://archive.storycorps.org/wp-json/stats") %>%
@@ -30,7 +32,7 @@ for (i in id) {
     for (a in 1:length(tmp)) {
       
       if(is.null(tmp[[a]]$questions %>% unlist) | all(tmp[[a]]$questions %>%
-                                                      unlist %>% attributes %>% unlist %>% unname %notin% c('text', 'text.text'))) {
+                                                      unlist %>% attributes %>% unlist %>% unname %notin% 'text')) {
         
         data.frame(
           id = tmp[[a]]$`_id`,
@@ -91,7 +93,7 @@ for (i in id) {
             unname,
           questions = tmp[[a]]$questions %>%
             unlist %>%
-            .[attributes(.)$names %in% c('text.text', 'text')] %>%
+            .[attributes(.)$names %in% 'text'] %>%
             unname
         ) -> api
         
