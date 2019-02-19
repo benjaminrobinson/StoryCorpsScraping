@@ -6,7 +6,7 @@ library(dplyr)
 #https://storycorps.org/wp-json/posts
 #https://storycorps.org/wp-json/stories
 url = "https://archive.storycorps.org/wp-json/interviews?page="
-id = 1:17310
+id = 1:17311
 
 getStoryCorpsStats <- function() {
   GET("https://archive.storycorps.org/wp-json/stats") %>%
